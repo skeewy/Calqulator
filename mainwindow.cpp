@@ -18,36 +18,19 @@ void MainWindow::on_equalButton_clicked()
 {
     QString operation = ui->Operation->text();
     std::vector<double> nums;
-    int start = 0;
     int numsI = 0;
 
     for (int i = 0; i < operation.length(); i++)
     {
-        switch (operation[i].unicode())
+        if (operation[i] == '*' || operation[i] == '/')
         {
-            case '+':
-                start = i+1;
-                numsI++;
-
-                nums.push_back((operation.mid(start, i)).toDouble());
-                break;
-            case '-':
-                start = i+1;
-                numsI++;
-
-                break;
-            case '*':
-                start = i+1;
-                numsI++;
-
-                break;
-            case '/':
-                start = i+1;
-                numsI++;
-
-                break;
-            default:
-                break;
+            for (int j = i-1; j < 0; j--)
+            {
+                if (!operation[j].isDigit() || j == 0)
+                {
+                    nums.push_back((operation.mid(j, i)).toDouble());
+                }
+            }
         }
     }
 }
